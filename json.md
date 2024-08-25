@@ -12,6 +12,7 @@
 
 * 序列化和反序列化
   * `func Marshal(v any) ([]byte, error)` // 将一个对象编码成JSON数据，接受一个任何类型的对象，返回[]byte和error：
+
   ```go
   // json.go
   package main
@@ -224,6 +225,7 @@
     }
     ```
   样例3, 处理http响应数据解码的两种方式:
+
   ```go
   package main
   import (
@@ -279,6 +281,7 @@
   }
   ```
   > **Tip**
+  > 
   > 1、json.NewDecoder是从一个流里面直接进行解码，代码精干；
   > 
   > 2、json.Unmarshal是从已存在与内存中的json进行解码；
