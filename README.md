@@ -18,7 +18,7 @@
   * [strings](strings.md)
   * [strconv](strconv.md)
   * [bytes](bytes.md)
-  * json
+  * [json](json.md)
   * io/bufio
   * fmt
   * time
