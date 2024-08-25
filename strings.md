@@ -1,46 +1,48 @@
 # strings
 
-1. 前缀和后缀
+## 前缀和后缀
 
   * `HasPrefix()` 判断字符串`s`是否以`prefix`开头：
 
-    ``````go
+    ```go
     strings.HasPrefix(s, prefix string) bool
-    ``````
+    ```
 
   * `HasSuffix()`判断字符串`s`是否以`suffix`结尾：
 
     ```go
     strings.HasSuffix(s, suffix string) bool
+    ```
 
-2. 字符串包含关系
+## 字符串包含关系
 
 * `Contains()`判断字符串`s`是否包含`substr`
 
-  ``````go
+  ```go
   strings.Contains(s, substr string) bool
-  ``````
+  ```
 
-3. 判断子字符串或字符在父字符串中出现的位置（索引）
+## 判断子字符串或字符在父字符串中出现的位置（索引）
 
 * `Index()`返回字符串`str`在字符串`s`中的索引（`str`的第一个字符的索引），-1表示字符串`s`不包含字符串`str`:
 
-  ``````go
+  ```go
   strings.Index(s, str string) int
-  ``````
+  ```
 
 * `LastIndex()`返回字符串`str`在字符串`s`中最后出现的位置的索引（`str`的第一个字符的索引），-1表示字符串`s`不包含字符串`str`:
 
-  ``````go
+  ```go
   strings.LastIndex(s, str string) int
-  ``````
+  ```
+
 * `IndexRune` 查询非ASCII编码的字符在父字符串中的位置
 
   ```go
   strings.IndexRune(s string, r rune) int
   ```
 
-4. 字符串替换
+## 字符串替换
 
 * `Replace()`用于将字符串`str`中前`n`个字符串`old`替换为字符串`new`，并返回一个新的字符串。
   如果`n = -1`则替换所有的字符串`old`为字符串`new`，这种情况同样可以使用`strings.ReplaceAll()`
@@ -49,7 +51,7 @@
   strings.Replace(str, old, new string, n int) string
   ```
 
-5. 统计字符串出现的次数
+## 统计字符串出现的次数
 
 * `Count()`用于计算字符串`str`在字符串`s`中出现的非重叠次数：
 
@@ -57,7 +59,7 @@
   strings.Count(s, str string) int
   ```
 
-6. 重复字符串
+## 重复字符串
 
 * `Repeat()`用于重复`ount`次字符串`s`并返回一个新的字符串：
 
@@ -65,7 +67,7 @@
   strings.Repeat(s string, count int) string
   ```
 
-7. 修改字符串大小写
+## 修改字符串大小写
 
 * `ToLower()`将字符串中的Unicode字符全部转化为相应的小写字符：
 
@@ -79,7 +81,7 @@
   strings.ToUpper(s) string
   ```
 
-8. 修剪字符串
+## 修剪字符串
 
 * `strings.TrimSpace(s)`剔除字符串中开头和结尾的空白符。
 * `strings.Trim(s, "cut")将`字符串`s`中开头和结尾的`cut`去除掉。第二个参数可以包含任何字符。
@@ -91,43 +93,43 @@
 > strings.TrimLeft() 函数不仅仅删除一样的前缀，若剩下的字符串中有跟前缀一样的字符，也会删掉。
 > strings.TrimRight() 函数和 strings.TrimLeft() 函数类似，只是删除的是一样的后缀。
 
-```go
-package main
-import (
-	"fmt"
-	"strings"
-)
-func main() {
-	fmt.Println("删除前缀字符串 TrimPrefix()函数 测试")
-	src := "xxabcdefg"
- 
-	// 由于src的开头和pre1一致，所以返回删除pre1后的内容，即"defg"
-	pre1 := "xxabc"
-	result1 := strings.TrimPrefix(src, pre1)
-	fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", src, pre1, result1)
- 
-	// 由于src的开头和pre2不一致，所以不做修改，直接返回原来的内容
-	pre2 := "abc"
-	result2 := strings.TrimPrefix(src, pre2)
-	fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n\n", src, pre2, result2)
- 
-	fmt.Println("删除前缀，且删除剩下内容中的左侧和前缀中一样的字符 TrimLeft()函数 测试")
- 
-	// 由于srcstr的开头和pre3的一致，第一步：删除pre3，即"mysql"，剩下"myour"; 第二步：剩下的"myour"中，左侧开头的"my"和pre3开头一样所以也删除，剩下"our"
-	srcstr := "mysqlmyour"
-	pre3 := "mysql"
-	result3 := strings.TrimLeft(srcstr, pre3)
-	fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", srcstr, pre3, result3)
- 
-	// 由于srcstr2的开头和pre4的一致，第一步：删除pre4，即"mysql"，剩下"ourmy"; 第二步：剩下的"ourmy"，左侧开头的内容和pre4开头不一样，所以不做操作，直接返回
-	srcstr2 := "mysqlourmy"
-	pre4 := "mysql"
-	result4 := strings.TrimLeft(srcstr2, pre4)
-	fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", srcstr2, pre4, result4)
-}
-```
+  ```go
+  package main
+  import (
+      "fmt"
+      "strings"
+  )
+  func main() {
+      fmt.Println("删除前缀字符串 TrimPrefix()函数 测试")
+      src := "xxabcdefg"
+   
+      // 由于src的开头和pre1一致，所以返回删除pre1后的内容，即"defg"
+      pre1 := "xxabc"
+      result1 := strings.TrimPrefix(src, pre1)
+      fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", src, pre1, result1)
+   
+      // 由于src的开头和pre2不一致，所以不做修改，直接返回原来的内容
+      pre2 := "abc"
+      result2 := strings.TrimPrefix(src, pre2)
+      fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n\n", src, pre2, result2)
+   
+      fmt.Println("删除前缀，且删除剩下内容中的左侧和前缀中一样的字符 TrimLeft()函数 测试")
+   
+      // 由于srcstr的开头和pre3的一致，第一步：删除pre3，即"mysql"，剩下"myour"; 第二步：剩下的"myour"中，左侧开头的"my"和pre3开头一样所以也删除，剩下"our"
+      srcstr := "mysqlmyour"
+      pre3 := "mysql"
+      result3 := strings.TrimLeft(srcstr, pre3)
+      fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", srcstr, pre3, result3)
+   
+      // 由于srcstr2的开头和pre4的一致，第一步：删除pre4，即"mysql"，剩下"ourmy"; 第二步：剩下的"ourmy"，左侧开头的内容和pre4开头不一样，所以不做操作，直接返回
+      srcstr2 := "mysqlourmy"
+      pre4 := "mysql"
+      result4 := strings.TrimLeft(srcstr2, pre4)
+      fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", srcstr2, pre4, result4)
+  }
+  ```
 
-9. 分割字符串
+## 分割字符串
 
 * `strings.Fields(s)` 将会利用1个或多个空白符来作为动态长度的分隔符将字符串分割成若干个小块，并返回一个 slice。
 
@@ -150,7 +152,7 @@ func main() {
   }
   ```
 
-10. 拼接slice到字符串
+## 拼接slice到字符串
 
 * `strings.Join()`用于将元素类型为string的 slice 使用分隔符号来拼接组成一个字符串。
 
@@ -164,7 +166,7 @@ func main() {
   fmt.Printf("sl joined by ;: %s\n", str)
   ```
 
-11. 从字符串中读取内容
+## 从字符串中读取内容
 
 * `strings.NewReader(str)`用于生成一个`Reader`并读取字符串中的内容，然后返回指向该`Reader`的指针。
 
@@ -260,7 +262,8 @@ func main() {
   fmt.Println(string(buf)) //defgh
   ```
 
-12. 在 Go 1.18版本中，strings 包新增的两个API：Clone 和 Cut。
+## 其他
+
 * `strings.Clone()`
   ```go
   // Clone returns a copy of the string s.
@@ -287,7 +290,6 @@ func main() {
   将字符串 s 在第一个 sep 处切割成两部分，返回分割值 before 和 after。如果 s 中存在 sep，则返回 before，after，true，
   如果 s 中没有 sep，则返回 s,"",false。
 
-13. 其他
 * `strings.Map()` 将输入字符串中的每个字符使用函数处理后映射后返回一份字符串的副本，如果函数中的某个字符返回负数则删除对应的字符。
   ```go
   func Map(mapping func(rune) rune, s string) string
