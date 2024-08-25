@@ -1,18 +1,3 @@
-# 内置库的常用操作
-
-* strings
-* strconv
-* bytes
-* json
-* io/bufio
-* fmt
-* time
-* regexp
-* reflect/unsafe
-* os/path/filepath
-* unicode
-* Sort
-
 # strings
 
 1. 前缀和后缀
@@ -57,7 +42,8 @@
 
 4. 字符串替换
 
-* `Replace()`用于将字符串`str`中前`n`个字符串`old`替换为字符串`new`，并返回一个新的字符串，如果`n = -1`则替换所有的字符串`old`为字符串`new`
+* `Replace()`用于将字符串`str`中前`n`个字符串`old`替换为字符串`new`，并返回一个新的字符串。
+  如果`n = -1`则替换所有的字符串`old`为字符串`new`，这种情况同样可以使用`strings.ReplaceAll()`
 
   ```go
   strings.Replace(str, old, new string, n int) string
@@ -98,6 +84,48 @@
 * `strings.TrimSpace(s)`剔除字符串中开头和结尾的空白符。
 * `strings.Trim(s, "cut")将`字符串`s`中开头和结尾的`cut`去除掉。第二个参数可以包含任何字符。
 * 如果只想剔除开头或者结尾的字符串，使用`strings.TrimLeft` 或者`strings.TrimRight` 来实现。
+* `strings.TrimSuffix()` 用于删除字符串末尾的指定字符串。 `strings.TrimPrefix()` 用于删除字符串开头的指定字符串。
+
+> **Tip**:
+> strings.TrimPrefix() 函数很简单，就是删掉一样的前缀。
+> strings.TrimLeft() 函数不仅仅删除一样的前缀，若剩下的字符串中有跟前缀一样的字符，也会删掉。
+> strings.TrimRight() 函数和 strings.TrimLeft() 函数类似，只是删除的是一样的后缀。
+
+```go
+package main
+import (
+	"fmt"
+	"strings"
+)
+func main() {
+	fmt.Println("删除前缀字符串 TrimPrefix()函数 测试")
+	src := "xxabcdefg"
+ 
+	// 由于src的开头和pre1一致，所以返回删除pre1后的内容，即"defg"
+	pre1 := "xxabc"
+	result1 := strings.TrimPrefix(src, pre1)
+	fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", src, pre1, result1)
+ 
+	// 由于src的开头和pre2不一致，所以不做修改，直接返回原来的内容
+	pre2 := "abc"
+	result2 := strings.TrimPrefix(src, pre2)
+	fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n\n", src, pre2, result2)
+ 
+	fmt.Println("删除前缀，且删除剩下内容中的左侧和前缀中一样的字符 TrimLeft()函数 测试")
+ 
+	// 由于srcstr的开头和pre3的一致，第一步：删除pre3，即"mysql"，剩下"myour"; 第二步：剩下的"myour"中，左侧开头的"my"和pre3开头一样所以也删除，剩下"our"
+	srcstr := "mysqlmyour"
+	pre3 := "mysql"
+	result3 := strings.TrimLeft(srcstr, pre3)
+	fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", srcstr, pre3, result3)
+ 
+	// 由于srcstr2的开头和pre4的一致，第一步：删除pre4，即"mysql"，剩下"ourmy"; 第二步：剩下的"ourmy"，左侧开头的内容和pre4开头不一样，所以不做操作，直接返回
+	srcstr2 := "mysqlourmy"
+	pre4 := "mysql"
+	result4 := strings.TrimLeft(srcstr2, pre4)
+	fmt.Printf("删除前：%v, 前缀：%v, 删除后：%v \n", srcstr2, pre4, result4)
+}
+```
 
 9. 分割字符串
 
@@ -232,23 +260,56 @@
   fmt.Println(string(buf)) //defgh
   ```
 
-# strconv
+12. 在 Go 1.18版本中，strings 包新增的两个API：Clone 和 Cut。
+* `strings.Clone()`
+  ```go
+  // Clone returns a copy of the string s.
+  func Clone(s string) string {
+    if len(s) == 0 {
+      return ""
+    }
+    b := make([]byte, len(s))
+    copy(b, s)
+    return unsafe.String(&b[0], len(b))
+  }
+  ```
+  * 通过 copy 函数对原始字符串进行复制，得到一份新的 []byte 数据。
+  * 通过 *(*string)(unsafe.Pointer(&b)) 进行指针操作，实现 byte 到 string 的零内存复制转换。
 
-与字符串相关的类型转换都是通过`strconv`包实现的。
+* `strings.Cut()`
+  ```go
+  // Cut slices s around the first instance of sep,
+  // returning the text before and after sep.
+  // The found result reports whether sep appears in s.
+  // If sep does not appear in s, cut returns s, "", false.
+  func Cut(s, sep string) (before, after string, found bool)
+  ```
+  将字符串 s 在第一个 sep 处切割成两部分，返回分割值 before 和 after。如果 s 中存在 sep，则返回 before，after，true，
+  如果 s 中没有 sep，则返回 s,"",false。
 
-### 整数类型和字符串类型
-
-* `strconv.Itoa(i int) string` 返回数字 `i`所表示的字符串类型的十进制数。
-* `strconv.Atoi(s string) int` 将字符串转换为 `int`类型。
-* `strconv.ParseInt(s string, base, bitSize int) (i int, err error) ` 和 `strconv.ParseUint()` 将字符串转换为数字。
-* `strconv.FormatInt()` 和 ``strconv.FormatUint()``
-
-### 浮点类型和字符串类型
-
-* `strconv.ParseFloat(s string, bitSize int) (f float64, err error)` 将字符串转换成`float64`型
-* `strconv.FormatFloat(f float64, fmt byte, prec int, bitSize int) string` 将`float64`型的数字转换成字符串。其中fmt表示格式（其值可以是'b', 'e', 'f', 或'g'）, prec表示精度，bitSize则使用32表示`float32`，用64表示`float64`
-
-### 布尔类型和字符串类型
-
-* `strconv.ParseBool()` 将字符串的 Bool类型转换成 Bool类型
-* `strconv.FormatBool` 将
+13. 其他
+* `strings.Map()` 将输入字符串中的每个字符使用函数处理后映射后返回一份字符串的副本，如果函数中的某个字符返回负数则删除对应的字符。
+  ```go
+  func Map(mapping func(rune) rune, s string) string
+  ```
+  ```go
+  package main
+  
+  import (
+    "fmt";
+    "strings"
+  )
+  
+  func main() {
+    modified := func(r rune) rune {
+      if r == 'e' {
+        return '@'
+      }
+      return r
+    }
+  
+    input:= "Hello, Welcome to GeeksforGeeks"
+    result := strings.Map(modified, input)
+    fmt.Println(result)  // 结果是 H@llo, W@lcom@ to G@@ksforG@@ks
+  } 
+  ```
