@@ -17,7 +17,7 @@
 - 第 4 章：内置库的常用操作
   * [strings](strings.md)
   * [strconv](strconv.md)
-  * bytes
+  * [bytes](bytes.md)
   * json
   * io/bufio
   * fmt
