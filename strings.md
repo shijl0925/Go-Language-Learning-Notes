@@ -16,11 +16,19 @@
 
 ## 字符串包含关系
 
-* `Contains()`判断字符串`s`是否包含`substr`
+  * `Contains()`判断字符串`s`是否包含`substr`
 
-  ```go
-  strings.Contains(s, substr string) bool
-  ```
+    ```go
+    strings.Contains(s, substr string) bool
+    ```
+  * `ContainsAny()` chars中任何一个Unicode代码点在s中，返回true
+    ```go
+    strings.ContainsAny(s, chars string) bool
+    ```
+  * `ContainsRune()` Unicode代码点r在s中，返回true
+    ```go
+    func ContainsRune(s string, r rune) bool
+    ```
 
 ## 判断子字符串或字符在父字符串中出现的位置（索引）
 
@@ -56,8 +64,12 @@
 * `Count()`用于计算字符串`str`在字符串`s`中出现的非重叠次数：
 
   ```go
-  strings.Count(s, str string) int
+  strings.Count(s, substr string) int
   ```
+
+  > **Tip**
+  > 
+  > 这里要特 别说明一下的是当 substr 为空时，Count 的返回值是:utf8.RuneCountInString(s) + 1
 
 ## 重复字符串
 
@@ -131,7 +143,7 @@
 
 ## 分割字符串
 
-* `strings.Fields(s)` 将会利用1个或多个空白符来作为动态长度的分隔符将字符串分割成若干个小块，并返回一个 slice。
+* `strings.Fields(s string) []string` 将会利用1个或多个空白符来作为动态长度的分隔符将字符串分割成若干个小块，并返回一个 slice。如果 字符串 s 只包含空格，则返回空列表([]string的⻓度为0)
 
   ```go
   str := "The quick brown fox jumps over the lazy dog"
@@ -142,7 +154,23 @@
   }
   ```
 
-* `strings.Split(s, sep)`用于使用自定义分割符号来对指定字符串进行分割，同样返回slice。
+* `strings.FieldsFunc(s string, f func(rune) bool) []string`
+  FieldsFunc 用这样的 Unicode 代码点 c 进行分隔：满足 f(c) 返回 true。该函数返回[]string。如果字符串 s 中所有的代码点 (unicode code points) 都满足 f(c) 或者 s 是空，则 FieldsFunc 返回空 slice。
+  
+  也就是说，我们可以通过实现一个回调函数来指定分隔字符串 s 的字符。比如上面的例子，我们通过 FieldsFunc 来实现：
+  ```go
+  fmt.Println(strings.FieldsFunc("  foo bar  baz   ", unicode.IsSpace))
+  ```
+  
+  实际上，Fields 函数就是调用 FieldsFunc 实现的：
+  ```go
+  func Fields(s string) []string {
+    return FieldsFunc(s, unicode.IsSpace)
+  }
+  ```
+
+
+* `strings.Split(s, sep) []string`用于使用自定义分割符号来对指定字符串进行分割，同样返回slice。
 
   ```go
   str := "GO1|GO2|GO3"
