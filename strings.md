@@ -5,13 +5,13 @@
   * `HasPrefix()` 判断字符串`s`是否以`prefix`开头：
 
     ```go
-    strings.HasPrefix(s, prefix string) bool
+    func HasPrefix(s, prefix string) bool
     ```
 
   * `HasSuffix()`判断字符串`s`是否以`suffix`结尾：
 
     ```go
-    strings.HasSuffix(s, suffix string) bool
+    func HasSuffix(s, suffix string) bool
     ```
 
 ## 字符串包含关系
@@ -19,11 +19,11 @@
   * `Contains()`判断字符串`s`是否包含`substr`
 
     ```go
-    strings.Contains(s, substr string) bool
+    func Contains(s, substr string) bool
     ```
   * `ContainsAny()` chars中任何一个Unicode代码点在s中，返回true
     ```go
-    strings.ContainsAny(s, chars string) bool
+    func ContainsAny(s, chars string) bool
     ```
   * `ContainsRune()` Unicode代码点r在s中，返回true
     ```go
@@ -35,19 +35,19 @@
 * `Index()`返回字符串`str`在字符串`s`中的索引（`str`的第一个字符的索引），-1表示字符串`s`不包含字符串`str`:
 
   ```go
-  strings.Index(s, str string) int
+  func Index(s, substr string) int
   ```
 
 * `LastIndex()`返回字符串`str`在字符串`s`中最后出现的位置的索引（`str`的第一个字符的索引），-1表示字符串`s`不包含字符串`str`:
 
   ```go
-  strings.LastIndex(s, str string) int
+  func LastIndex(s, substr string) int
   ```
 
 * `IndexRune` 查询非ASCII编码的字符在父字符串中的位置
 
   ```go
-  strings.IndexRune(s string, r rune) int
+  func IndexRune(s string, r rune) int
   ```
 
 ## 字符串替换
@@ -56,7 +56,7 @@
   如果`n = -1`则替换所有的字符串`old`为字符串`new`，这种情况同样可以使用`strings.ReplaceAll()`
 
   ```go
-  strings.Replace(str, old, new string, n int) string
+  func Replace(s, old, new string, n int) string
   ```
 
 ## 统计字符串出现的次数
@@ -64,7 +64,7 @@
 * `Count()`用于计算字符串`str`在字符串`s`中出现的非重叠次数：
 
   ```go
-  strings.Count(s, substr string) int
+  func Count(s, substr string) int
   ```
 
   > **Tip**
@@ -76,7 +76,7 @@
 * `Repeat()`用于重复`ount`次字符串`s`并返回一个新的字符串：
 
   ```go
-  strings.Repeat(s string, count int) string
+  func Repeat(s string, count int) string
   ```
 
 ## 修改字符串大小写
@@ -84,13 +84,13 @@
 * `ToLower()`将字符串中的Unicode字符全部转化为相应的小写字符：
 
   ```go
-  strings.ToLower(s) string
+  func ToLower(s string) string
   ```
 
 * `ToUpper()`将字符串中的Unicode字符全部转化为相应的大写字符：
 
   ```go
-  strings.ToUpper(s) string
+  func ToUpper(s string) string
   ```
 
 ## 修剪字符串
@@ -143,7 +143,7 @@
 
 ## 分割字符串
 
-* `strings.Fields(s string) []string` 将会利用1个或多个空白符来作为动态长度的分隔符将字符串分割成若干个小块，并返回一个 slice。如果 字符串 s 只包含空格，则返回空列表([]string的⻓度为0)
+* `func Fields(s string) []string` 将会利用1个或多个空白符来作为动态长度的分隔符将字符串分割成若干个小块，并返回一个 slice。如果 字符串 s 只包含空格，则返回空列表([]string的⻓度为0)
 
   ```go
   str := "The quick brown fox jumps over the lazy dog"
@@ -154,7 +154,7 @@
   }
   ```
 
-* `strings.FieldsFunc(s string, f func(rune) bool) []string`
+* `func FieldsFunc(s string, f func(rune) bool) []string`
   FieldsFunc 用这样的 Unicode 代码点 c 进行分隔：满足 f(c) 返回 true。该函数返回[]string。如果字符串 s 中所有的代码点 (unicode code points) 都满足 f(c) 或者 s 是空，则 FieldsFunc 返回空 slice。
   
   也就是说，我们可以通过实现一个回调函数来指定分隔字符串 s 的字符。比如上面的例子，我们通过 FieldsFunc 来实现：
@@ -170,7 +170,7 @@
   ```
 
 
-* `strings.Split(s, sep) []string`用于使用自定义分割符号来对指定字符串进行分割，同样返回slice。
+* `func Split(s, sep string) []string`用于使用自定义分割符号来对指定字符串进行分割，同样返回slice。
 
   ```go
   str := "GO1|GO2|GO3"
@@ -185,7 +185,7 @@
 * `strings.Join()`用于将元素类型为string的 slice 使用分隔符号来拼接组成一个字符串。
 
   ```go
-  strings.Join(sl []string, sep string) string
+  func Join(elems []string, sep string) string
   ```
 
   ```go
