@@ -1,4 +1,4 @@
-# bytes
+# bytes - byte slice 便利操作 #
 
 内置库bytes提供了与strings相似的操作，但bytes操作的是字节数组，而不是字符串。其实两者可以相互转换，所以只需记住一个常用的用法即可。
 
