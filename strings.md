@@ -53,7 +53,7 @@
 ## 字符串替换
 
 * `Replace()`用于将字符串`str`中前`n`个字符串`old`替换为字符串`new`，并返回一个新的字符串。
-  如果`n = -1`则替换所有的字符串`old`为字符串`new`，这种情况同样可以使用`strings.ReplaceAll()`
+  如果`n = -1`则替换所有的字符串`old`为字符串`new`，这种情况同样可以使用`ReplaceAll()`
 
   ```go
   func Replace(s, old, new string, n int) string
@@ -95,15 +95,17 @@
 
 ## 修剪字符串
 
-* `strings.TrimSpace(s)`剔除字符串中开头和结尾的空白符。
-* `strings.Trim(s, "cut")将`字符串`s`中开头和结尾的`cut`去除掉。第二个参数可以包含任何字符。
-* 如果只想剔除开头或者结尾的字符串，使用`strings.TrimLeft` 或者`strings.TrimRight` 来实现。
-* `strings.TrimSuffix()` 用于删除字符串末尾的指定字符串。 `strings.TrimPrefix()` 用于删除字符串开头的指定字符串。
+* `func TrimSpace(s string) string`剔除字符串中开头和结尾的空白符。
+* `func Trim(s, cutset string) string`将`字符串`s`中开头和结尾的`cutset`去除掉。第二个参数可以包含任何字符。
+* 如果只想剔除开头或者结尾的字符串，使用`TrimLeft` 或者`TrimRight` 来实现。
+* `func TrimSuffix(s, suffix string) string` 用于删除字符串末尾的指定字符串。 `func TrimPrefix(s, prefix string) string` 用于删除字符串开头的指定字符串。
 
 > **Tip**:
-> strings.TrimPrefix() 函数很简单，就是删掉一样的前缀。
-> strings.TrimLeft() 函数不仅仅删除一样的前缀，若剩下的字符串中有跟前缀一样的字符，也会删掉。
-> strings.TrimRight() 函数和 strings.TrimLeft() 函数类似，只是删除的是一样的后缀。
+> `func TrimPrefix(s, prefix string) string` 函数很简单，就是删掉一样的前缀。
+> 
+> `func TrimLeft(s, cutset string) string` 函数不仅仅删除一样的前缀，若剩下的字符串中有跟前缀一样的字符，也会删掉。
+> 
+> `func TrimRight(s, cutset string) string` 函数和 `TrimLeft()` 函数类似，只是删除的是一样的后缀。
 
   ```go
   package main
@@ -182,7 +184,7 @@
 
 ## 拼接slice到字符串
 
-* `strings.Join()`用于将元素类型为string的 slice 使用分隔符号来拼接组成一个字符串。
+* `Join()`用于将元素类型为string的 slice 使用分隔符号来拼接组成一个字符串。
 
   ```go
   func Join(elems []string, sep string) string
@@ -196,7 +198,7 @@
 
 ## 从字符串中读取内容
 
-* `strings.NewReader(str)`用于生成一个`Reader`并读取字符串中的内容，然后返回指向该`Reader`的指针。
+* `NewReader(str)`用于生成一个`Reader`并读取字符串中的内容，然后返回指向该`Reader`的指针。
 
 * `Read()`从`[]byte`中读取内容。
 
@@ -292,7 +294,7 @@
 
 ## 其他
 
-* `strings.Clone()`
+* `Clone()`
   ```go
   // Clone returns a copy of the string s.
   func Clone(s string) string {
@@ -307,7 +309,7 @@
   * 通过 copy 函数对原始字符串进行复制，得到一份新的 []byte 数据。
   * 通过 *(*string)(unsafe.Pointer(&b)) 进行指针操作，实现 byte 到 string 的零内存复制转换。
 
-* `strings.Cut()`
+* `Cut()`
   ```go
   // Cut slices s around the first instance of sep,
   // returning the text before and after sep.
@@ -318,7 +320,7 @@
   将字符串 s 在第一个 sep 处切割成两部分，返回分割值 before 和 after。如果 s 中存在 sep，则返回 before，after，true，
   如果 s 中没有 sep，则返回 s,"",false。
 
-* `strings.Map()` 将输入字符串中的每个字符使用函数处理后映射后返回一份字符串的副本，如果函数中的某个字符返回负数则删除对应的字符。
+* `Map()` 将输入字符串中的每个字符使用函数处理后映射后返回一份字符串的副本，如果函数中的某个字符返回负数则删除对应的字符。
   ```go
   func Map(mapping func(rune) rune, s string) string
   ```
