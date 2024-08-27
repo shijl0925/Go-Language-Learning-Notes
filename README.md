@@ -19,7 +19,8 @@
   * [strconv](strconv.md)
   * [bytes](bytes.md)
   * [encoding/json](json.md)
-  * io/bufio
+  * [io](io.md)
+  * [bufio](bufio.md)
   * fmt
   * time
   * regexp
