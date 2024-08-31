@@ -122,7 +122,7 @@ func Create(name string) (*File, error) {
 **`Read` 和 `ReadAt` 的区别**：前者从文件当前偏移量处读，且会改变文件当前的偏移量；而后者从 `off` 指定的位置开始读，且**不会改变**文件当前偏移量。
 
 
-#### 读取文件内容的三种方法
+### 读取文件内容的三种方法
 * 使用`Read` 按段读取
     ```go
     package main
@@ -210,6 +210,7 @@ func Create(name string) (*File, error) {
         fmt.Println(string(data))
     }
     ```
+
 ### 数据写入文件：Write
 
 `func (f *File) Write(b []byte) (n int, err error)`
@@ -228,6 +229,76 @@ func Create(name string) (*File, error) {
     2. 调用 `File.Sync()` 方法。
 
 说明：`File.Sync()` 底层调用的是 `fsync` 系统调用，这会将数据和元数据都刷到磁盘；如果只想刷数据到磁盘（比如，文件大小没变，只是变了文件数据），需要自己封装，调用 `fdatasync` 系统调用。（`syscall.Fdatasync`）
+
+### 文件写入的三种方法
+* `Write`和`WriteString`写入操作
+    ```go
+    package main
+
+    import (
+        "log"
+        "os"
+    )
+
+    func main() {
+        file, err := os.OpenFile("test.txt", os.O_CREATE|os.O_WRONLY, 0644)
+        if err != nil {
+            log.Fatalf("Failed to open file: %v", err)
+        }
+        defer file.Close()
+
+        if _, err := file.Write([]byte("Hello, World!")); err != nil {
+            log.Fatalf("Failed to write to file: %v", err)
+        }
+
+        //if _, err := file.WriteString("Hello, World!"); err != nil {
+        //	log.Fatalf("Failed to write to file: %v", err)
+        //}
+    }
+    ```
+
+* `bufio.NewWriter` 先往缓冲区写,然后才写到磁盘中去。
+    ```go
+    package main
+
+    import (
+        "bufio"
+        "log"
+        "os"
+    )
+
+    func main() {
+        file, err := os.OpenFile("test.txt", os.O_CREATE|os.O_WRONLY, 0644)
+        if err != nil {
+            log.Fatalf("Failed to open file: %v", err)
+        }
+        defer file.Close()
+
+        writer := bufio.NewWriter(file)
+        defer writer.Flush()
+
+        if _, err := writer.WriteString("Hello, World!\n"); err != nil {
+            log.Fatalf("Failed to write to file: %v", err)
+        }
+    }
+    ```
+
+* `os.WriteFile` 写入操作
+    ```go
+    package main
+
+    import (
+        "log"
+        "os"
+    )
+
+    func main() {
+        err := os.WriteFile("test.txt", []byte("hello world"), 0644)
+        if err != nil {
+            log.Fatalf("Failed to write to file: %v", err)
+        }
+    }
+    ```
 
 ### 关闭文件：Close
 
