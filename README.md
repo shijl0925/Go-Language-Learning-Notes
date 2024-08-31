@@ -20,6 +20,7 @@
   * [bytes](bytes.md)
   * [encoding/json](json.md)
   * [io](io.md)
+  * [ioutil](ioutil.md)
   * [bufio](bufio.md)
   * fmt
   * time
