@@ -26,6 +26,7 @@
   * time
   * regexp
   * reflect/unsafe
-  * os/path/filepath
+  * [os](os.md)
+  * [path/filepath](filepath.md)
   * unicode
   * Sort
