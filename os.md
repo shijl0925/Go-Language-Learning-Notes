@@ -121,6 +121,95 @@ func Create(name string) (*File, error) {
 
 **`Read` 和 `ReadAt` 的区别**：前者从文件当前偏移量处读，且会改变文件当前的偏移量；而后者从 `off` 指定的位置开始读，且**不会改变**文件当前偏移量。
 
+
+#### 读取文件内容的三种方法
+* 使用`Read` 按段读取
+    ```go
+    package main
+
+    import (
+        "fmt"
+        "io"
+        "log"
+        "os"
+    )
+
+    func main() {
+        file, err := os.OpenFile("vc.json", os.O_RDONLY, 0)
+        if err != nil {
+            log.Fatalf("Failed to open file: %v", err)
+        }
+        defer file.Close()
+
+        for {
+            buf := make([]byte, 1024)
+            n, err := file.Read(buf)
+            if err != nil {
+                if err == io.EOF {
+                    break
+                }
+                log.Fatalf("Failed to read file: %v", err)
+            }
+            if n == 0 {
+                break
+            }
+            fmt.Println(string(buf[:n]))
+        }
+    }
+    ```
+
+* 使用 `bufio.NewReader` 和 `Reader.ReadString` ，减少磁盘的操作。
+    ```go
+    package main
+
+    import (
+        "bufio"
+        "fmt"
+        "io"
+        "log"
+        "os"
+        "strings"
+    )
+
+    func main() {
+        file, err := os.OpenFile("vc.json", os.O_RDONLY, 0)
+        if err != nil {
+            log.Fatalf("Failed to open file: %v", err)
+        }
+        defer file.Close()
+
+        reader := bufio.NewReader(file)
+        for {
+            line, err := reader.ReadString('\n')
+            if err != nil {
+                if err == io.EOF {
+                    break
+                }
+                log.Fatalf("Error reading line: %v", err)
+            }
+            fmt.Println(strings.TrimRight(line, "\n"))
+        }
+    }
+    ```
+* 使用`os.ReadFile`读取整个文件的所有内容
+
+    ```go
+    package main
+
+    import (
+        "fmt"
+        "log"
+        "os"
+    )
+
+    func main() {
+        data, err := os.ReadFile("vc.json")
+        if err != nil {
+            log.Fatalf("Failed to read file: %v", err)
+        }
+        fmt.Println(string(data))
+    }
+    ```
 ### 数据写入文件：Write
 
 `func (f *File) Write(b []byte) (n int, err error)`
