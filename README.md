@@ -27,6 +27,8 @@
   * regexp
   * reflect/unsafe
   * [os](os.md)
+    * [读取文件内容的三种方法](os.md#读取文件内容的三种方法)
+    * [文件写入的三种方法](os.md#文件写入的三种方法)
   * [path/filepath](filepath.md)
   * unicode
   * Sort
