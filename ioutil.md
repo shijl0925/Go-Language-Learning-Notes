@@ -6,6 +6,8 @@
 
 ## NopCloser 函数 ##
 
+> **Warning**
+> 
 > Deprecated: As of Go 1.16, this function simply calls `io.NopCloser`.
 
 有时候我们需要传递一个 io.ReadCloser 的实例，而我们现在有一个 io.Reader 的实例，比如：strings.Reader ，这个时候 NopCloser 就派上用场了。它包装一个io.Reader，返回一个 io.ReadCloser ，而相应的 Close 方法啥也不做，只是返回 nil。
@@ -21,6 +23,8 @@
 
 ## ReadAll 函数 ##
 
+> **Warning**
+>
 > Deprecated: As of Go 1.16, this function simply calls `io.ReadAll`.
 
 很多时候，我们需要一次性读取 io.Reader 中的数据，通过上一节的讲解，我们知道有很多种实现方式。考虑到读取所有数据的需求比较多，Go 提供了 ReadAll 这个函数，用来从io.Reader 中一次读取所有数据。
@@ -31,6 +35,8 @@
 
 ## ReadDir 函数 ##
 
+> **Warning**
+>
 > Deprecated: As of Go 1.16, `os.ReadDir` is a more efficient and correct choice: it returns a list of fs.DirEntry instead of fs.FileInfo, and it returns partial results in the case of an error midway through reading a directory.
 >
 > If you must continue obtaining a list of fs.FileInfo, you still can:
@@ -83,6 +89,8 @@ func listAll(path string, curHier int){
 
 ## ReadFile 和 WriteFile 函数 ##
 
+> **Warning**
+>
 > Deprecated: As of Go 1.16, these functions simply call `os.ReadFile` / `os.WriteFile`.
 
 ReadFile 读取整个文件的内容，在上一节我们自己实现了一个函数读取文件整个内容，由于这种需求很常见，因此 Go 提供了 ReadFile 函数，方便使用。ReadFile 的实现和ReadAll 类似，不过，ReadFile 会先判断文件的大小，给 bytes.Buffer 一个预定义容量，避免额外分配内存。
@@ -109,6 +117,8 @@ ReadFile 源码中先获取了文件的大小，当大小 < 1e9 时，才会用�
 
 ## TempDir 和 TempFile 函数 ##
 
+> **Warning**
+>
 > Deprecated: As of Go 1.17, these functions simply call `os.MkdirTemp` / `os.CreateTemp`.
 > 
 
@@ -133,6 +143,8 @@ ReadFile 源码中先获取了文件的大小，当大小 < 1e9 时，才会用�
 ```
 ## Discard 变量 ##
 
+> **Warning**
+>
 > Deprecated: As of Go 1.16, this value is simply `io.Discard`.
 
 Discard 对应的类型（`type devNull int`）实现了 io.Writer 接口，同时，为了优化 io.Copy 到 Discard，避免不必要的工作，实现了 io.ReaderFrom 接口。
