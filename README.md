@@ -33,3 +33,5 @@
   * unicode
   * [sort - 排序算法](sort.md)
   * [net/url](net-url.md)
+  * [net/http](net-http.md)
+  * [slices](slices.md)
