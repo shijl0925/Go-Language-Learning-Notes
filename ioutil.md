@@ -6,7 +6,7 @@
 
 ## NopCloser 函数 ##
 
-> **Warning**
+> [!WARNING]
 > 
 > Deprecated: As of Go 1.16, this function simply calls `io.NopCloser`.
 
@@ -23,7 +23,7 @@
 
 ## ReadAll 函数 ##
 
-> **Warning**
+> [!WARNING]
 >
 > Deprecated: As of Go 1.16, this function simply calls `io.ReadAll`.
 
@@ -35,7 +35,7 @@
 
 ## ReadDir 函数 ##
 
-> **Warning**
+> [!WARNING]
 >
 > Deprecated: As of Go 1.16, `os.ReadDir` is a more efficient and correct choice: it returns a list of fs.DirEntry instead of fs.FileInfo, and it returns partial results in the case of an error midway through reading a directory.
 >
@@ -89,7 +89,7 @@ func listAll(path string, curHier int){
 
 ## ReadFile 和 WriteFile 函数 ##
 
-> **Warning**
+> [!WARNING]
 >
 > Deprecated: As of Go 1.16, these functions simply call `os.ReadFile` / `os.WriteFile`.
 
@@ -117,7 +117,7 @@ ReadFile 源码中先获取了文件的大小，当大小 < 1e9 时，才会用�
 
 ## TempDir 和 TempFile 函数 ##
 
-> **Warning**
+> [!WARNING]
 >
 > Deprecated: As of Go 1.17, these functions simply call `os.MkdirTemp` / `os.CreateTemp`.
 > 
@@ -143,7 +143,7 @@ ReadFile 源码中先获取了文件的大小，当大小 < 1e9 时，才会用�
 ```
 ## Discard 变量 ##
 
-> **Warning**
+> [!WARNING]
 >
 > Deprecated: As of Go 1.16, this value is simply `io.Discard`.
 
