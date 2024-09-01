@@ -101,6 +101,7 @@
 * `func TrimSuffix(s, suffix string) string` 用于删除字符串末尾的指定字符串。 `func TrimPrefix(s, prefix string) string` 用于删除字符串开头的指定字符串。
 
 > 💡 **Tip**:
+>
 > `func TrimPrefix(s, prefix string) string` 函数很简单，就是删掉一样的前缀。
 > 
 > `func TrimLeft(s, cutset string) string` 函数不仅仅删除一样的前缀，若剩下的字符串中有跟前缀一样的字符，也会删掉。
