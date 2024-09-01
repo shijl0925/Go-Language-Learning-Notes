@@ -134,7 +134,7 @@ func main() {
 	url := "www.google.com is Google web site"
 
 	result := reg.Split(url, -1)
-	fmt.Println(result)
+	fmt.Println(result)  // [www google com is Google web site]
 }
 ```
 
