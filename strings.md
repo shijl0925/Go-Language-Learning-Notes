@@ -67,7 +67,7 @@
   func Count(s, substr string) int
   ```
 
-  > **Tip**
+  > 💡 **Tip**
   > 
   > 这里要特 别说明一下的是当 substr 为空时，Count 的返回值是:utf8.RuneCountInString(s) + 1
 
@@ -100,7 +100,7 @@
 * 如果只想剔除开头或者结尾的字符串，使用`TrimLeft` 或者`TrimRight` 来实现。
 * `func TrimSuffix(s, suffix string) string` 用于删除字符串末尾的指定字符串。 `func TrimPrefix(s, prefix string) string` 用于删除字符串开头的指定字符串。
 
-> **Tip**:
+> 💡 **Tip**:
 > `func TrimPrefix(s, prefix string) string` 函数很简单，就是删掉一样的前缀。
 > 
 > `func TrimLeft(s, cutset string) string` 函数不仅仅删除一样的前缀，若剩下的字符串中有跟前缀一样的字符，也会删掉。

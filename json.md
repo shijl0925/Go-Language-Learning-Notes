@@ -284,7 +284,7 @@ func HandleRequest(r *http.Request, v interface{}) (*http.Response, error) {
   return resp, nil
 }
 ```
-> **Tip**
+> 💡 **Tip**
 > 
 > 1、json.NewDecoder是从一个流里面直接进行解码，代码精干；
 > 
