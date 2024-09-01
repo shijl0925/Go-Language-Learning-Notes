@@ -31,5 +31,5 @@
     * [文件写入的三种方法](os.md#文件写入的三种方法)
   * [path/filepath — 兼容操作系统的文件路径操作](filepath.md)
   * unicode
-  * sort
+  * [sort - 排序算法](sort.md)
   * [net/url](net-url.md)
