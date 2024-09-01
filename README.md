@@ -15,20 +15,20 @@
   * 接口(interface)
   * 反射
 - 第 4 章：内置库的常用操作
-  * [strings](strings.md)
-  * [strconv](strconv.md)
-  * [bytes](bytes.md)
-  * [encoding/json](json.md)
-  * [io](io.md)
-  * [ioutil](ioutil.md)
-  * [bufio](bufio.md)
+  * [strings - 字符串操作](strings.md)
+  * [strconv - 字符串和基本数据类型之间转换](strconv.md)
+  * [bytes - byte slice 便利操作](bytes.md)
+  * [encoding/json - json解析](json.md)
+  * [io — 基本的 IO 接口](io.md)
+  * [ioutil — 方便的IO操作函数集](ioutil.md)
+  * [bufio — 缓存IO](bufio.md)
   * fmt
   * time
   * regexp
   * reflect/unsafe
-  * [os](os.md)
+  * [os — 平台无关的操作系统功能实现](os.md)
     * [读取文件内容的三种方法](os.md#读取文件内容的三种方法)
     * [文件写入的三种方法](os.md#文件写入的三种方法)
-  * [path/filepath](filepath.md)
+  * [path/filepath — 兼容操作系统的文件路径操作](filepath.md)
   * unicode
-  * Sort
+  * sort
