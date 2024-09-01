@@ -24,7 +24,7 @@
   * [bufio — 缓存IO](bufio.md)
   * fmt
   * time
-  * regexp
+  * [regexp — 正则表达式](regexp.md)
   * [reflect/unsafe](reflect.md)
   * [os — 平台无关的操作系统功能实现](os.md)
     * [读取文件内容的三种方法](os.md#读取文件内容的三种方法)
@@ -35,3 +35,4 @@
   * [net/url](net-url.md)
   * [net/http](net-http.md)
   * [slices](slices.md)
+  * [error](error.md)
