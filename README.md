@@ -7,7 +7,7 @@
 - 第 3 章：[核心结构与技术](03.md)
   * [指针](pointer.md)
   * 控制结构
-  * 函数
+  * [函数](function.md)
   * 数组与切片
   * Map
   * 包(package)
